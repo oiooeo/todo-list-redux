@@ -20,21 +20,15 @@ export const toggleStatusTodo = (payload) => {
 const initialState = {
   todos: [
     {
-      id: 0,
+      id: Date.now(),
       title: "리액트 공부하기",
       content: "리액트 입문 강의 듣기",
       isDone: true,
     },
     {
-      id: 1,
+      id: Date.now() + 1,
       title: "리액트 공부하기",
       content: "리액트 숙련 강의 듣기",
-      isDone: false,
-    },
-    {
-      id: 2,
-      title: "점심 먹기",
-      content: "점심 뭐먹지..?",
       isDone: false,
     },
   ],
