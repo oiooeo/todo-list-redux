@@ -1,17 +1,33 @@
-import React from "react";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { createTodo } from "../redux/modules/todos";
 import styled from "styled-components";
 
-function TodoForm({ setValue, todo, todos, setTodos, setTodo }) {
+const TodoForm = () => {
+  const [todo, setTodo] = useState({
+    title: "",
+    content: "",
+  });
+
+  const dispatch = useDispatch();
+
+  const setValue = (event) => {
+    const { name, value } = event.target;
+
+    setTodo({ ...todo, [name]: value });
+  };
+
   const clickAddButtonHandler = (event) => {
     event.preventDefault();
-    const newTodo = {
-      id: Date.now(),
-      ...todo,
-      isDone: false,
-    };
+    if (todo.title === "") return;
 
-    setTodos([...todos, newTodo]);
-    setTodo({ title: "", content: "" });
+    dispatch(
+      createTodo({
+        id: Date.now(),
+        ...todo,
+        isDone: false,
+      })
+    );
   };
 
   return (
@@ -27,10 +43,10 @@ function TodoForm({ setValue, todo, todos, setTodos, setTodo }) {
           required
         />
       </InputGroup>
-      <AddBtn>제출</AddBtn>
+      <AddBtn>추가</AddBtn>
     </Form>
   );
-}
+};
 
 const Form = styled.form`
   align-items: center;

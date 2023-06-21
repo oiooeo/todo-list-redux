@@ -1,19 +1,24 @@
 import styled from "styled-components";
+import { useDispatch } from "react-redux";
+import { deleteTodo, toggleStatusTodo } from "../redux/modules/todos";
 
-export const DeleteButton = ({ todo, clickDeleteButtonHandler, children }) => {
-  return (
-    <DeleteBtn onClick={() => clickDeleteButtonHandler(todo.id)}>
-      {children}
-    </DeleteBtn>
-  );
+export const DeleteButton = ({ todo, children }) => {
+  const dispatch = useDispatch();
+
+  const clickDeleteButtonHandler = () => {
+    dispatch(deleteTodo(todo.id));
+  };
+
+  return <DeleteBtn onClick={clickDeleteButtonHandler}>{children}</DeleteBtn>;
 };
 
-export const UpdateButton = ({ todo, clickUpdateButtonHandler, children }) => {
-  return (
-    <UpdateBtn onClick={() => clickUpdateButtonHandler(todo.id)}>
-      {children}
-    </UpdateBtn>
-  );
+export const UpdateButton = ({ todo, children }) => {
+  const dispatch = useDispatch();
+
+  const clickUpdateButtonHandler = () => {
+    dispatch(toggleStatusTodo(todo.id));
+  };
+  return <UpdateBtn onClick={clickUpdateButtonHandler}>{children}</UpdateBtn>;
 };
 
 const DeleteBtn = styled.button`
